@@ -31,5 +31,12 @@ export default StyleSheet.create({
     borderRadius: 4,
     fontSize: 18
   },
-  
+  avatarBig: {
+    alignSelf: "center",
+    borderRadius: 10,
+    marginTop: 20,
+    resizeMode: "contain",
+    height: 80,
+    width: 80
+  }
 })

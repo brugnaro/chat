@@ -3,12 +3,13 @@ import { Text, View } from "react-native";
 
 type ChatProps = {
   username: string;
+  image: string;
 };
 
-const Chat = ({ username }: ChatProps) => {
+const Chat = ({ username, image }: ChatProps) => {
   return (
-    <View>
-      <Text>Hi test</Text>
+    <View style={{ marginTop: 200, alignSelf: "center" }}>
+      <Text>Hi {username}! You can chat here shortly.</Text>
     </View>
   );
 };
