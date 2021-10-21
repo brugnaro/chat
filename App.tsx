@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppLoading from 'expo-app-loading';
 
 import PersonalInfo from './components/PersonalInfo';
 import Chat from './components/Chat';
@@ -8,13 +10,36 @@ import Chat from './components/Chat';
 import Styles from './components/Styles';
 
 export default function App() {
-
+  const storageUserNameKey = "chatapp-username";
+  const storageImageKey = "chatapp-image";
   const [username, setUsername] = useState("");
   const [image, setImage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  const onPersonalInfoClosed = (name: string, image: string) => {
-    setUsername(name);
+  const fetchPersonalData = async () => {
+    let fetchedUsername = await AsyncStorage.getItem(storageUserNameKey);
+    let userName = fetchedUsername == null ? "" : fetchedUsername;
+    let fetchedImage = await AsyncStorage.getItem(storageImageKey);
+    let image = fetchedImage == null ? "" : fetchedImage;
+    setUsername(userName);
     setImage(image);
+  }
+
+  const onPersonalInfoClosed = async (name: string, image: string) => {
+    setUsername(name);
+    await AsyncStorage.setItem(storageUserNameKey, name);
+    setImage(image);
+    await AsyncStorage.setItem(storageImageKey, image);
+  }
+
+  if(isLoading) {
+    return (
+      <AppLoading 
+        startAsync={fetchPersonalData} 
+        onFinish={() => setIsLoading(false)} 
+        onError={console.warn}
+      />
+    )
   }
 
   let activeComponent = username != "" ? (

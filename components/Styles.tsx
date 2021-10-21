@@ -38,5 +38,26 @@ export default StyleSheet.create({
     resizeMode: "contain",
     height: 80,
     width: 80
+  },
+  sendSection: {
+
+  },
+  chatTextInput: {
+
+  },
+  flatListItem: {
+
+  },
+  chatItemHeader: {
+
+  },
+  avatarSmall: {
+
+  },
+  smallItalicText: {
+    
+  },
+  chatText: {
+    
   }
 })
